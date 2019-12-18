@@ -1,4 +1,4 @@
-@extends('layout')
+@extends($flag ? 'layout_auth' : 'layout')
 
 @section('content')
     <div class="body_bg">

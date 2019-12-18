@@ -75,7 +75,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <button class="btn_1 d-none d-sm-block" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'">Login</button>
+                                <button class="btn_1 d-none d-sm-block" id="login_button" onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none'">Zaloguj</button>
                             </nav>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                 </div>
 
                 <div class="form-group">
-                    <button style="cursor:pointer" type="submit" class="btn btn-primary">Zarejestruj</button>
+                    <button style="cursor:pointer" type="submit" class="btn btn-primary">Załóż konto</button>
                 </div>
 
             </form>
@@ -171,6 +171,12 @@
         </script>
         </div>
 
+
+        <script>
+            function hide_button() {
+                document.getElementById("login_button").style.display = "none";
+            }
+        </script>
 </body>
 
 </html>

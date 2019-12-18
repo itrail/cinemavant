@@ -6,8 +6,16 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function contact()
+    public function contact(Request $request)
     {
-        return view('pages.contact');
+        if($request->session()->has('name')) {
+            $user = $request->session()->get('name');
+            $flag = true;
+            return view('pages.contact', ['user' => $user], ['flag' => $flag]);
+        }
+        else {
+            $flag = false;
+            return view('pages.contact', ['flag' => $flag]);
+        }
     }
 }

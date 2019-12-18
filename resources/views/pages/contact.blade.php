@@ -1,4 +1,4 @@
-@extends('layout')
+@extends($flag ? 'layout_auth' : 'layout')
 
 @section('content')
     <!-- gallery_part part start-->
