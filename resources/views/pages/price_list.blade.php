@@ -46,12 +46,13 @@
                                     </ul>
 
                                 </div>
-
-                                <!-- gallery_part part end-->
-
-                                <!-- use sasu part end-->
-
-
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
                                 <!-- jquery plugins here-->
                                 <script src="js/jquery-1.12.1.min.js"></script>

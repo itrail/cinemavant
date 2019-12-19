@@ -16,18 +16,18 @@
                                 <form method="POST" action="/change_password">
                                     {{ csrf_field() }}
                                     <div class="form-group">
-                                        <label for="old_password">Wprowadź stare hasło:</label>
-                                        <input type="password" class="form-control" id="old_password" name="old_password">
+                                        <label for="password">Wprowadź stare hasło:</label>
+                                        <input type="password" class="form-control" id="password" name="password" required="required">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="password">Nowe hasło:</label>
-                                        <input type="password" class="form-control" id="password" name="password">
+                                        <label for="new_password">Nowe hasło:</label>
+                                        <input type="password" class="form-control" id="new_password" name="new_password" required="required">
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="password">Powtórz nowe hasło:</label>
-                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                                        <label for="new_confirm_password">Powtórz nowe hasło:</label>
+                                        <input type="password" class="form-control" id="new_confirm_password" name="new_confirm_password" required="required">
                                     </div>
 
                                     <div class="form-group">

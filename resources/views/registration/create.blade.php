@@ -14,27 +14,27 @@
                                         {{ csrf_field() }}
                                         <div class="form-group">
                                             <label for="firstname">Imię:</label>
-                                            <input type="text" class="form-control" id="firstname" name="firstname">
+                                            <input type="text" class="form-control" id="firstname" name="firstname" required="required">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="surname">Nazwisko:</label>
-                                            <input type="text" class="form-control" id="surname" name="surname">
+                                            <input type="text" class="form-control" id="surname" name="surname" required="required">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="email">Email:</label>
-                                            <input type="email" class="form-control" id="email" name="email">
+                                            <input type="email" class="form-control" id="email" name="email" required="required">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="password">Hasło:</label>
-                                            <input type="password" class="form-control" id="password" name="password">
+                                            <input type="password" class="form-control" id="password" name="password" required="required">
                                         </div>
 
                                         <div class="form-group">
                                             <label for="password">Powtórz hasło:</label>
-                                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required="required">
                                         </div>
 
                                         <div class="form-group">

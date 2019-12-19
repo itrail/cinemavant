@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Rules\MatchOldPassword;
 use Illuminate\Http\Request;
 use App\User;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
 {
@@ -46,6 +48,7 @@ class IndexController extends Controller
                 }
                 if (strlen(implode(request(['email']))) > 0 && $this->validate(request(), ['email' => 'email',])) {
                     $this->update_data($user, 'email', implode(request(['email'])));
+                    $request->session()->put('name',implode(request(['email'])));
                 }
                 return redirect()->to('/modify_data')->withErrors(['Poprawnie zaaktualizowano Twoje dane!', 'The Message']);
             }
@@ -76,26 +79,27 @@ class IndexController extends Controller
 
     public function change(Request $request)
     {
-        //try{
-            if ($request->session()->has('name'))
-            {
+        try {
+            if ($request->session()->has('name')) {
                 $user = $request->session()->get('name');
-                $pass = DB::table('users')->select('password')->where('email', $user)->get()->first();
+                $pass = DB::table('users')->select('password')->where('email', $user)->get();
                 $rules = [
-                    'password' => 'required|confirmed|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                    'password' => 'required',
+                    'new_password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+                    'new_confirm_password' => 'same:new_password',
                 ];
-                if ($pass ==  implode(request(['old_password']))/* && strlen(implode(request(['password']))) > 0 && $this->validate(request(), $rules)*/) {
-                    $this->update_data($user, 'password', implode(request(['password'])));
-                    return redirect()->to('/change_password')->withErrors(['Poprawnie zmieniono Twoje hasło!', 'The Message']);
-                }
-echo implode(request(['old_password']));
-                echo $pass;
 
+                if (Auth::attempt(array('email' => $user, 'password' => implode(request(['password'])))) && $this->validate(request(), $rules)) {
+                    $this->update_data($user, 'password', Hash::make(implode(request(['new_password']))));
+                    return redirect()->to('/change_password')->withErrors(['Poprawnie zaaktualizowano Twoje hasło!', 'The Message']);
+                } else
+                    return redirect()->to('/change_password')->withErrors(['Podaj poprawne, dotychczasowe hasło!', 'The Message']);
             }
-        //}
-        /*catch (Exception $e) {
-            return redirect()->to('/change_password')->withErrors(['Podano niepoprawne dane w fomularzu. Spróbuj ponownie!', 'The Message']);
-        }*/
+        }
+        catch (Exception $e)
+        {
+            return redirect()->to('/change_password')->withErrors(['Podano hasło niespełniające wymagań. Spróbuj ponownie z bezpieczniejszym hasłem!', 'The Message']);
+        }
     }
 
 
