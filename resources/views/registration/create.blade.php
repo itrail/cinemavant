@@ -14,17 +14,17 @@
                                         {{ csrf_field() }}
                                         <div class="form-group">
                                             <label for="firstname">Imię:</label>
-                                            <input type="text" class="form-control" id="firstname" name="firstname" required="required">
+                                            <input type="text" class="form-control" id="firstname" name="firstname" required="required" onkeyup='saveValue(this);'>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="surname">Nazwisko:</label>
-                                            <input type="text" class="form-control" id="surname" name="surname" required="required">
+                                            <input type="text" class="form-control" id="surname" name="surname" required="required" onkeyup='saveValue(this);'>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="email">Email:</label>
-                                            <input type="email" class="form-control" id="email" name="email" required="required">
+                                            <input type="email" class="form-control" id="email" name="email" required="required" onkeyup='saveValue(this);'>
                                         </div>
 
                                         <div class="form-group">
@@ -51,3 +51,25 @@
 
 
     </form>
+
+    <script type="text/javascript">
+        document.getElementById("firstname").value = getSavedValue("firstname");    // set the value to this input
+        document.getElementById("surname").value = getSavedValue("surname");   // set the value to this input
+        document.getElementById("email").value = getSavedValue("email");
+        /* Here you can add more inputs to set value. if it's saved */
+
+        //Save the value function - save it to localStorage as (ID, VALUE)
+        function saveValue(e){
+            var id = e.id;  // get the sender's id to save it .
+            var val = e.value; // get the value.
+            localStorage.setItem(id, val);// Every time user writing something, the localStorage's value will override .
+        }
+
+        //get the saved value function - return the value of "v" from localStorage.
+        function getSavedValue  (v){
+            if (!localStorage.getItem(v)) {
+                return "";// You can change this to your defualt value.
+            }
+            return localStorage.getItem(v);
+        }
+    </script>

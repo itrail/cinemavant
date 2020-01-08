@@ -14,7 +14,8 @@
                                     <h1>Nie masz jeszcze konta?</h1>
                                     <p>Założenie konta przynosi wiele korzyści.
                                         Sprawdź to! </p>
-                                    <button class="btn_1 d-none d-sm-block" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'">Zarejestruj</button>
+                                    <button class="btn_1 d-none d-sm-block" onclick='window.location.href="/register"'>Zarejestruj</button>
+                                    <!--<button class="btn_1 d-none d-sm-block" onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none'">Zarejestruj</button>-->
                                 </div>
                             </div>
                         </div>
