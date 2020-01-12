@@ -7,8 +7,24 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-5">
+                <?php
+                use Illuminate\Support\Facades\DB;
+                    $halls = DB::table('halls')->get();
+                    $movies = DB::table('movies')->get();
+                ?>
+                    <h2>Wybierz film, na który chcesz się wybrać:</h2>
+
+
+
+                    <div class="form-group">
+                        <button style="cursor:pointer" type="submit" class="btn btn-primary">Dodaj film</button>
+                    </div>
+                    </form>
+
+                Auta 19:30 <input type="text" > <button>Rezerwuj</button>
                 <div class="section_tittle text-center">
                     </br></br></br></br></br>
+                    Auta 19:30 <input type="text" > <button>Rezerwuj</button>
                     <h2>Nadchodzące premiery</h2>
                 </div>
             </div>

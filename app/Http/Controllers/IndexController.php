@@ -102,6 +102,137 @@ class IndexController extends Controller
         }
     }
 
+    public function hall(Request $request){
+        if ($request->session()->has('name')) {
+            $user = $request->session()->get('name');
+            $admins = DB::table('users')->select('admin')->where('email', $user)->get();
+            foreach($admins as $admin) {
+                if ($admin->admin == 1) {
+                    $halls = DB::table('halls')->get();
+                    return view('pages.add_hall', ['halls' => $halls]);
+                }
+                else return "Brak dostępu";
+            }
+        }
+        else return "Brak dostępu";
+    }
+
+    public function add_hall(Request $request)
+    {
+        try{
+            if(intval(implode(request(['seats'])))>0)
+            DB::table('halls')->insert(
+                array(
+                    'amount_of_seats'   =>   implode(request(['seats']))
+                )
+            );
+            else{
+                return redirect()->to('/add_hall')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+            }
+
+
+                return redirect()->to('/add_hall')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
+
+        }
+        catch (Exception $e) {
+            return redirect()->to('/add_hall')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+        }
+    }
+
+    public function movie(Request $request){
+        if ($request->session()->has('name')) {
+            $user = $request->session()->get('name');
+            $admins = DB::table('users')->select('admin')->where('email', $user)->get();
+            foreach($admins as $admin) {
+                if ($admin->admin == 1) {
+                    $movies = DB::table('movies')->get();
+                    return view('pages.add_movie', ['movies' => $movies]);
+                }
+                else return "Brak dostępu";
+            }
+        }
+        else return "Brak dostępu";
+    }
+
+    public function add_movie(Request $request){
+        try{
+            if(strlen(implode(request(['titlee'])))>0)
+                DB::table('movies')->insert(
+                    array(
+                        'title'   =>   implode(request(['titlee'])),
+                        'poster' => implode(request(['poster'])),
+                        'description' => implode(request(['description'])),
+                        'age_category' => implode(request(['age_category'])),
+                        'genre' => implode(request(['genre'])),
+                        'release_date' => implode(request(['release_date'])),
+                    )
+                );
+            else{
+                return redirect()->to('/add_movie')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+            }
+
+
+            return redirect()->to('/add_movie')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
+
+        }
+        catch (Exception $e) {
+            return redirect()->to('/add_movie')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+        }
+    }
+
+    public function remove_movie(Request $request){
+        try{
+            $checked = $request->input('checked');
+            foreach ($checked as $id) {
+                DB::table('movies')->where('movie_id', $id)->delete();
+            }
+            return redirect()->to('/add_movie');
+        }
+        catch (Exception $e) {
+            return redirect()->to('/add_movie')->withErrors(['Próbujesz usunąć film, do którego przypisane są seanse!', 'The Message']);
+        }
+
+    }
+
+    public function seance(Request $request){
+        if ($request->session()->has('name')) {
+            $user = $request->session()->get('name');
+            $admins = DB::table('users')->select('admin')->where('email', $user)->get();
+            foreach($admins as $admin) {
+                if ($admin->admin == 1) {
+                    return view('pages.add_seance');
+                } else
+                    return "Brak dostępu";
+            }
+        }
+        else return "Brak dostępu";
+
+    }
+
+    public function add_seance(Request $request){
+        try{
+            $seances = DB::table('seanses_times')->get();
+                DB::table('seanses_times')->insert(
+                    array(
+                        'seance_time'   =>   implode(request(['seance_time'])),
+                        'movie_id' => implode(request(['movie_id'])),
+                        'hall_id' => implode(request(['hall_id'])),
+                        'amount_of_reserved' => 0,
+                    ));
+            return redirect()->to('/add_seance')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
+        }
+        catch (Exception $e) {
+            return redirect()->to('/add_seance')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+        }
+    }
+
+    public function remove_seance(Request $request){
+        $checked =$request->input('checked');
+        foreach ($checked as $id) {
+            DB::table('seanses_times')->where('seance_id', $id)->delete();
+        }
+        return redirect()->to('/add_seance');
+    }
 
     public function show()
     {
