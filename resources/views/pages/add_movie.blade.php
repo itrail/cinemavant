@@ -21,7 +21,7 @@
                                 </form>
                                     <br>
                                 <h2>Dodaj nowy film:</h2>
-                                <form method="POST" action="/add_movie">
+                                <form method="POST" action="/admin/add_movie">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <div class="form-group">
