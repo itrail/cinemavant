@@ -11,6 +11,7 @@
                                 <p>{{$user }}</p>
                                 <p><    <a href="/modify_data">Modyfikuj informacje o sobie</a></p>
                                 <p><    <a href="/change_password">Zmień hasło</a></p>
+                                <p><    <a href="/reservations">Moje rezerwacje</a></p>
                             </div>
                         </div>
                     </div>

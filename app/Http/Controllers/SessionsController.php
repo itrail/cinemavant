@@ -14,7 +14,7 @@ class SessionsController extends Controller
             return view('sessions.login');
         }
         else{
-            return redirect('/');
+            return redirect('/index');
         }
     }
 

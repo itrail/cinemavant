@@ -16,7 +16,7 @@
                                 @if($errors->any())
                                     <h5 style="color:red;font-family:verdana;">{{$errors->first()}}</h5>
                                 @endif
-                                <form method="POST" action="/remove_seance">
+                                <form method="POST" action="/admin/remove_seance">
                                     {{ csrf_field() }}
                                     @foreach ($seances as $seance)
                                         <section>Id seansu: {{ $seance->seance_id }}   Tytuł: {{ $seance->seance_id }}
@@ -26,7 +26,7 @@
                                 </form>
                                 <br>
                                 <h2>Dodaj nową godzinę seansu:</h2>
-                                <form method="POST" action="/add_seance">
+                                <form method="POST" action="/admin/add_seance">
                                     {{ csrf_field() }}
                                     <div class="form-group">
                                         <div class="form-group">

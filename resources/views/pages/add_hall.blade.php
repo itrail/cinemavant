@@ -15,7 +15,7 @@
                                     <p>Sala nr: {{ $hall->hall_id }}   Ilośc miejsc: {{ $hall->amount_of_seats }}</p>
                                 @endforeach
                                     <h2>Dodaj nową salę:</h2>
-                                    <form method="POST" action="/add_hall">
+                                    <form method="POST" action="/admin/add_hall">
                                         {{ csrf_field() }}
                                         <div class="form-group">
                                             <div class="form-group">

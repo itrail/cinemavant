@@ -127,15 +127,15 @@ class IndexController extends Controller
                 )
             );
             else{
-                return redirect()->to('/add_hall')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+                return redirect()->to('/admin/add_hall')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
             }
 
 
-                return redirect()->to('/add_hall')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
+                return redirect()->to('/admin/add_hall')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
 
         }
         catch (Exception $e) {
-            return redirect()->to('/add_hall')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+            return redirect()->to('/admin/add_hall')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
         }
     }
 
@@ -168,15 +168,15 @@ class IndexController extends Controller
                     )
                 );
             else{
-                return redirect()->to('/add_movie')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+                return redirect()->to('/admin/add_movie')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
             }
 
 
-            return redirect()->to('/add_movie')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
+            return redirect()->to('/admin/add_movie')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
 
         }
         catch (Exception $e) {
-            return redirect()->to('/add_movie')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+            return redirect()->to('/admin/add_movie')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
         }
     }
 
@@ -186,10 +186,10 @@ class IndexController extends Controller
             foreach ($checked as $id) {
                 DB::table('movies')->where('movie_id', $id)->delete();
             }
-            return redirect()->to('/add_movie');
+            return redirect()->to('/admin/add_movie');
         }
         catch (Exception $e) {
-            return redirect()->to('/add_movie')->withErrors(['Próbujesz usunąć film, do którego przypisane są seanse!', 'The Message']);
+            return redirect()->to('/admin/add_movie')->withErrors(['Próbujesz usunąć film, do którego przypisane są seanse!', 'The Message']);
         }
 
     }
@@ -212,17 +212,27 @@ class IndexController extends Controller
     public function add_seance(Request $request){
         try{
             $seances = DB::table('seanses_times')->get();
-                DB::table('seanses_times')->insert(
-                    array(
-                        'seance_time'   =>   implode(request(['seance_time'])),
-                        'movie_id' => implode(request(['movie_id'])),
-                        'hall_id' => implode(request(['hall_id'])),
-                        'amount_of_reserved' => 0,
-                    ));
-            return redirect()->to('/add_seance')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
+            foreach($seances as $seance) {
+                $halls = DB::table('halls')->where('hall_id', implode(request(['hall_id'])))->get();
+            }
+                foreach ($halls as $hall) {
+                    $free = $hall->amount_of_seats;
+                }
+
+                    DB::table('seanses_times')->insert(
+                        array(
+                            'seance_time' => implode(request(['seance_time'])),
+                            'movie_id' => implode(request(['movie_id'])),
+                            'hall_id' => implode(request(['hall_id'])),
+                            'amount_of_free' => $free,
+                        ));
+
+
+
+            return redirect()->to('/admin/add_seance')->withErrors(['Poprawnie zaaktualizowano ', 'The Message']);
         }
         catch (Exception $e) {
-            return redirect()->to('/add_seance')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
+            return redirect()->to('/admin/add_seance')->withErrors(['Podano niepoprawną wartość. Spróbuj ponownie!', 'The Message']);
         }
     }
 
@@ -231,7 +241,7 @@ class IndexController extends Controller
         foreach ($checked as $id) {
             DB::table('seanses_times')->where('seance_id', $id)->delete();
         }
-        return redirect()->to('/add_seance');
+        return redirect()->to('/admin/add_seance');
     }
 
     public function show()

@@ -1,30 +1,28 @@
 @extends($flag ? 'layout_auth' : 'layout')
 
 @section('content')
+    <?php
+    use Illuminate\Support\Facades\DB;
+    $halls = DB::table('halls')->get();
+    $movies = DB::table('movies')->get();
+    $seances = DB::table('seanses_times')->get();
+    ?>
+
 
 <!-- breadcrumb start-->
 <section class="gallery_part section_padding">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-xl-5">
-                <?php
-                use Illuminate\Support\Facades\DB;
-                    $halls = DB::table('halls')->get();
-                    $movies = DB::table('movies')->get();
-                ?>
-                    <h2>Wybierz film, na który chcesz się wybrać:</h2>
 
 
 
-                    <div class="form-group">
-                        <button style="cursor:pointer" type="submit" class="btn btn-primary">Dodaj film</button>
-                    </div>
-                    </form>
-
-                Auta 19:30 <input type="text" > <button>Rezerwuj</button>
                 <div class="section_tittle text-center">
                     </br></br></br></br></br>
-                    Auta 19:30 <input type="text" > <button>Rezerwuj</button>
+                    @foreach($seances as $seance)
+
+                        Tytuł filmu: {{$seance->movie_id}} Czas: {{$seance->seance_time}} <button><a href="/{{$seance->seance_id}}">Rezerwuj</a></button> <br>
+                    @endforeach
                     <h2>Nadchodzące premiery</h2>
                 </div>
             </div>

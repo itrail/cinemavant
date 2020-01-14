@@ -8,11 +8,11 @@ Route::get('/price_list', 'PriceListController@price_list');
 Route::get('/repertoire', 'RepertoireController@repertoire');
 Route::get('/contact', 'ContactController@contact');
 
+Route::get('/reservations', 'ReservationController@myReservations');
+Route::post('/reservations', 'ReservationController@resign');
 //logowanie i rejestracja
 Route::get('session/get','SessionsController@accessSessionData');
 Route::get('session/remove','SessionsController@deleteSessionData');
-
-Route::get('admin/logout','AdminController@deleteSessionData');
 
 Route::get('/register', 'RegistrationController@create');
 Route::post('/register', 'RegistrationController@store');
@@ -29,6 +29,8 @@ Route::post('/change_password', 'IndexController@change');
 //administrator
 Route::get('/admin', 'AdminController@login');
 Route::post('/admin', 'AdminController@authenticate');
+Route::get('admin/logout','AdminController@deleteSessionData');
+
 Route::get('/admin/index', 'AdminController@index');
 
 Route::get('/admin/add_hall', 'IndexController@hall');
@@ -41,6 +43,11 @@ Route::post('/admin/remove_movie', 'IndexController@remove_movie');
 Route::get('/admin/add_seance', 'IndexController@seance');
 Route::post('/admin/add_seance', 'IndexController@add_seance');
 Route::post('/admin/remove_seance', 'IndexController@remove_seance');
+
+Route::get('/{seance}', 'ReservationController@index');
+Route::post('/reservation/{seance}', 'ReservationController@reserve');
+
+
 //Route::get('/index/create', 'IndexController@create');
 
 //Route::get('/index/{page}', 'IndexController@show');
